@@ -1,0 +1,251 @@
+PUT /vehicles/car/123
+{
+  "make": "Honda",
+  "Color": "Honda",
+  "HP": 250,
+  "milage": 24000,
+  "price": 19300.97
+}
+
+GET /vehicles/car/123
+
+
+
+GET /vehicles/car/123/_source
+
+
+
+HEAD /vehicles/car/123
+
+
+POST /vehicles/car/123/_update
+{
+  "doc":{
+    "price": 1000.20
+  }
+}
+
+
+
+DELETE /vehicles/car/123
+
+
+
+PUT /business/building/110
+{
+  "address": "57 New Dover Ln",
+  "floors": 10,
+  "offices": 21,
+  "loc": {
+    "lat": 40.707519,
+    "lon": -74.008560
+  }
+}
+
+
+
+
+GET /business
+
+
+
+PUT /business/building/217
+{
+  "address": "57 New Dover Ln",
+  "floors": 5,
+  "offices": 7,
+  "price": 450000,
+  "loc": {
+    "lat": 40.693519,
+    "lon": -73.988560
+  }
+}
+
+
+
+
+PUT /business/employee/330
+{
+  "name": "Richard Bell",
+  "title": "Senior Accountant",
+  "salary_usd": 115000.00,
+  "hiredate": "Jan 19, 2013"
+}
+
+
+
+PUT /employee/_doc/330
+{
+  "name": "Richard Bell",
+  "title": "Senior Accountant",
+  "salary_usd": 115000.00,
+  "hiredate": "Jan 19, 2013"
+}
+
+
+
+PUT /contracts/_doc/9987
+{
+  "name": "property renovation",
+  "date_signed": "July 26, 2010",
+  "employees_involved": [331, 330, 398]
+}
+
+
+
+GET business/building/_search
+
+
+
+
+GET business/_search
+{
+  "query": {
+    "term": {
+      "address": "pen"
+      }
+    }
+  }
+}
+
+
+
+GET business/_search
+{
+  "query": {
+    "match_all": {}
+    }
+  }
+}
+
+
+
+
+
+
+curl -XGET "http://localhost:9200/business/_search" -H 'Content-Type: application/json' -d'
+{
+  "query": {
+    "match_all": {}
+    }
+  }'
+}
+
+
+
+
+
+PUT /customers
+{
+  "settings": {
+    "number_of_shards": 2,
+    "number_of_replicas": 1
+  },
+  "mappings": {}
+}
+
+
+
+
+
+PUT /customers
+{
+  "mappings": {
+    "online": {
+      "properties": {
+        "gender": {
+          "type": "text",
+          "analyzer": "standard"
+        },
+        "age": {
+          "type": "integer"
+        },
+        "total_spent": {
+          "type": "float"
+        },
+        "is_new": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "text",
+          "analyzer": "standard"
+        }
+      }
+    }
+  },
+  "settings": {
+    "number_of_shards": 2,
+    "number_of_replicas": 1
+  }
+}
+
+
+
+
+PUT /customers/online/124
+{
+  "name": "Mary Cranford",
+  "address": "310 Clark Ave",
+  "gender": "female",
+  "age": 34,
+  "total_spent": 550.75,
+  "is_new": false
+}
+
+
+
+GET customers/_mapping/online
+{
+  "dynamic": false
+}
+
+
+
+GET customers/_mapping/online
+{
+  "dynamic": "strict"
+}
+
+
+
+PUT /customers/online/124
+{
+  "name": "Mary Cranford",
+  "address": "310 Clark Ave",
+  "gender": "female",
+  "age": 34,
+  "total_spent": 550.75,
+  "is_new": false,
+  "retired": true
+}
+
+
+POST _analyze
+{
+  "analyzer": "whitespace",
+  "text":     "The quick brown fox."
+}
+
+
+
+POST _analyze
+{
+  "analyzer": "standard",
+  "text":     "The quick brown fox."
+}
+
+
+
+POST _analyze
+{
+  "analyzer": "simple",
+  "text":     "The quick brown fox."
+}
+
+
+
+POST _analyze
+{
+  "analyzer": "english",
+  "text":     "The quick running fox."
+}
