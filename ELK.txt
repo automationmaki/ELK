@@ -404,3 +404,241 @@ PUT /courses/classroom/10
 
 
 
+
+GET /courses/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+
+GET /courses/_search
+{
+  "query": {
+    "exists": {"field":"professor.email"}
+  }
+}
+
+
+
+GET /courses/_search
+{
+  "query": {
+    "match": {"name":"computer"}
+  }
+}
+
+
+
+
+GET /courses/_search
+{
+  "query": {
+    "bool":{
+      "must":[
+      {"match": {"name":"computer"}}
+      ]
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+GET /courses/_search
+{
+  "query": {
+    "bool":{
+      "must":[
+      {"match": {"name":"accounting"}}
+      ]
+    }
+  }
+}
+
+
+
+
+
+GET /courses/_search
+{
+  "query": {
+    "bool":{
+      "must":[
+      {"match": {"name":"accounting"}},
+      {"match": {"room":"e3"}}
+      ]
+    }
+  }
+}
+
+
+
+
+
+
+GET /courses/_search
+{
+  "query": {
+    "bool":{
+      "must":[
+      {"match": {"name":"accounting"}},
+      {"match": {"room":"e3"}}
+      ],
+      
+      "must_not": [
+        {"match": {"professor.name":"bill"}}
+      ]
+    }
+  }
+}
+
+
+
+
+
+GET /courses/_search
+{
+  "query": {
+    "bool":{
+      "must":[
+      {"match": {"name":"accounting"}},
+      {"match": {"room":"e3"}}
+      ],
+      
+      "must_not": [
+        {"match": {"professor.name":"bill"}}
+      ],
+      
+      "should": [
+        {"match": {"name":"computer"}}
+      ]
+    }
+  }
+}
+
+
+
+
+GET /courses/_search
+{
+  "query": {
+    "bool":{
+      "must":[
+      {"match": {"name":"accounting"}},
+      {"match": {"room":"e3"}}
+      ],
+      
+      "must_not": [
+        {"match": {"professor.name":"bill"}}
+      ],
+      
+      "should": [
+        {"match": {"name":"computer"}}
+      ],
+      "minimum_should_match": 1
+    }
+    
+  }
+}
+
+
+
+
+
+GET /courses/_search
+{
+  "query": {
+    "bool":{
+      "must":[
+      {"match": {"name":"accounting"}},
+      {"match": {"room":"e3"}}
+      ],
+      
+      "must_not": [
+        {"match": {"professor.name":"bill"}}
+      ],
+      "should": [
+        {"match": {
+          "room": "e7"
+        }}
+      ]
+    }
+    
+  }
+}
+
+
+
+
+
+
+
+GET /courses/_search
+{
+  "query": {
+    "multi_match": {
+      "query": "accounting",
+      "fields": [
+        "name","professor.department"
+        ]
+    }
+    
+  }
+}
+
+
+
+
+
+GET /courses/_search
+{
+  "query": {
+    "range": {
+      "students_enrolled": {
+        "gte": 10,
+        "lte": 20
+      }
+    }
+    
+  }
+}
+
+
+
+
+
+GET /courses/_search
+{
+  "query": {
+    "range": {
+      "students_enrolled": {
+        "gte": 10,
+        "lt": 27
+      }
+    }
+    
+  }
+}
+
+
+
+
+
+GET /courses/_search
+{
+  "query": {
+    "range": {
+      "course_publish_date": {
+        "gt": "2013-08-27"
+      }
+    }
+    
+  }
+}
