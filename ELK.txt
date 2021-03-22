@@ -642,3 +642,51 @@ GET /courses/_search
     
   }
 }
+
+
+
+
+
+GET /courses/_search
+{
+  "query": {
+    "bool": { 
+  "filter":   {
+    "match": {
+      "name": "accounting"
+        }
+      }
+    }
+  
+  }
+}
+
+
+
+
+
+
+GET /courses/_search
+{
+  "query": {
+    "bool": { 
+  "filter":{
+        "bool": {
+          "must":[{"match": {
+      "professor.name": "bill"
+        }},
+        {
+    "match": {"name": "accounting"}}]
+          
+        }
+        
+      }
+    }
+  
+  }
+}
+
+
+
+
+
