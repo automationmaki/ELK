@@ -690,3 +690,99 @@ GET /courses/_search
 
 
 
+GET /courses/_search
+{
+  "query": {
+    "bool": { 
+  "filter":{
+        "bool": {
+          "must":[{"match": {
+      "professor.name": "bill"
+        }},
+        {
+    "match": {"name": "accounting"}}]
+          
+        }
+        
+      },
+      "must": [
+        {"match": {"room": "e7"}}]
+    }
+  
+  }
+}
+
+
+
+
+
+
+GET /courses/_search
+{
+  "query": {
+    "bool": { 
+  "filter":{
+        "bool": {
+          "must":[
+            {"range": {"students_enrolled":{"gte": 19}}}
+            ]
+          
+        }
+        
+      },
+      "must": [
+        {"match": {"room": "e7"}}]
+    }
+  
+  }
+}
+
+
+
+GET /courses/_search
+{
+  "query": {
+    "bool": { 
+  "filter":{
+        "bool": {
+          "must":[
+            {"range": {"students_enrolled":{"gt": 0}}}
+            ]
+          
+        }
+        
+      },
+      "should": [
+        {"match": {"room": "e7"}}]
+    }
+  
+  }
+}
+
+
+
+GET /courses/_search
+{
+  "query": {
+    "bool": { 
+  "filter":{
+        "bool": {
+          "must":[
+            {"range": {"students_enrolled":{"gt": 0}}}
+            ]
+          
+        }
+        
+      },
+      "should": [
+        {"match": {"room": "e7"}},
+        {"multi_match": {
+          "query": "market",
+          "fields": ["name", "course_description"]
+        }}]
+    }
+  
+  }
+}
+
+
