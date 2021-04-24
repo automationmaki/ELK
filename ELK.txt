@@ -820,7 +820,7 @@ POST /vehicles/cars/_bulk
 { "index": {}}
 { "price" : 30000, "color" : "gray", "make" : "bmw", "sold" : "2016-11-20", "condition": "good" }
 
-
+aggregations
 
 
 GET /vehicles/cars/_search
@@ -925,6 +925,119 @@ GET /vehicles/cars/_search
             "field":"price"
           }
         }
+      }
+    }
+  }
+}
+
+
+
+
+GET /vehicles/cars/_search
+{
+  "aggs": {
+    "popular_cars": {
+      "terms": {
+        "field": "make.keyword",
+        "size": 10
+      },
+      "aggs": {
+        "stats_on_price": {
+          "stats": {
+            "field":"price"
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+GET /vehicles/cars/_search
+{
+  "aggs": {
+    "popular_cars": {
+      "terms": {
+        "field": "make.keyword",
+        "size": 10
+      },
+      "aggs": {
+        "stats_on_price": {
+          "range": {
+            "field":"sold",
+            "ranges": [
+              {"from": "2016-01-01",
+                "to":"2016-05-18"
+              },
+              {"from": "2016-05-18",
+                "to":"2017-05-18"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+GET /vehicles/cars/_search
+{
+  "aggs": {
+    "popular_cars": {
+      "terms": {
+        "field": "make.keyword",
+        "size": 10
+      },
+      "aggs": {
+        "sold_date_ranges": {
+          "range": {
+            "field":"sold",
+            "ranges": [
+              {"from": "2016-01-01",
+                "to":"2016-05-18"
+              },
+              {"from": "2016-05-18",
+                "to":"2017-01-01"
+              }
+            ]
+          },
+        "aggs":{
+          "avg_price":{
+            "avg": {
+              "field": "price"
+            }
+          }
+        }
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+GET /vehicles/cars/_search
+{
+  "aggs": {
+    "popular_cars": {
+      "terms": {
+        "field": "condition.keyword",
+        "size": 10
       }
     }
   }
