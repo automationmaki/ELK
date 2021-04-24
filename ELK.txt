@@ -821,3 +821,25 @@ POST /vehicles/cars/_bulk
 { "price" : 30000, "color" : "gray", "make" : "bmw", "sold" : "2016-11-20", "condition": "good" }
 
 
+
+
+GET /vehicles/cars/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+
+
+
+
+
+GET /vehicles/cars/_search
+{
+  "from": 0, 
+  "size": 5, 
+  "query": {
+    "match_all": {}
+  }
+}
