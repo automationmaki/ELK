@@ -843,3 +843,89 @@ GET /vehicles/cars/_search
     "match_all": {}
   }
 }
+
+
+
+
+GET /vehicles/cars/_search
+{
+  "from": 0, 
+  "size": 5, 
+  "query": {
+    "match_all": {}
+  },
+  
+  "sort": [
+    {
+      "price": {
+        "order": "desc"
+      }
+    }
+  ]
+}
+
+
+
+
+
+
+
+GET /vehicles/cars/_search
+{
+  "query":{
+    "match":{
+      "make":"dodge"
+    }
+  }
+}
+
+
+GET /vehicles/cars/_count
+{
+  "query":{
+    "match":{
+      "make":"toyota"
+    }
+  }
+}
+
+
+
+
+
+GET /vehicles/cars/_search
+{
+  "aggs": {
+    "popular_cars": {
+      "terms": {
+        "field": "make.keyword",
+        "size": 10
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+GET /vehicles/cars/_search
+{
+  "aggs": {
+    "popular_cars": {
+      "terms": {
+        "field": "make.keyword",
+        "size": 10
+      },
+      "aggs": {
+        "avg_price": {
+          "avg": {
+            "field":"price"
+          }
+        }
+      }
+    }
+  }
+}
